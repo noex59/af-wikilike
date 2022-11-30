@@ -32,6 +32,9 @@ class Exemple
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $video = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -79,11 +82,11 @@ class Exemple
     }
 
 	public function setTechnologies(Technologie $technologie): self
-    {
-		$this->technologies = $technologie;
-
-        return $this;
-    }
+             {
+         		$this->technologies = $technologie;
+         
+                 return $this;
+             }
 
     public function getCreatedAt(): ?\DateTimeImmutable
     {
@@ -93,6 +96,18 @@ class Exemple
     public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getVideo(): ?string
+    {
+        return $this->video;
+    }
+
+    public function setVideo(?string $video): self
+    {
+        $this->video = $video;
 
         return $this;
     }
