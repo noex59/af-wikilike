@@ -25,12 +25,16 @@ class Exemple
     #[ORM\Column(type: Types::TEXT)]
     private ?string $code = null;
 
-    #[ORM\ManyToOne(inversedBy: 'exemple', targetEntity: Technologie::class)]
-    #[ORM\JoinColumn(nullable: false)]
-    private $technologies;
-
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\ManyToMany(targetEntity: Technologie::class, inversedBy: 'exemples')]
+    private Collection $technologies;
+
+    public function __construct()
+    {
+        $this->technologies = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -73,18 +77,6 @@ class Exemple
         return $this;
     }
 
-    public function getTechnologies(): ?Technologie
-    {
-        return $this->technologies;
-    }
-
-	public function setTechnologies(Technologie $technologie): self
-    {
-		$this->technologies = $technologie;
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
@@ -93,6 +85,30 @@ class Exemple
     public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Technologie>
+     */
+    public function getTechnologies(): Collection
+    {
+        return $this->technologies;
+    }
+
+    public function addTechnology(Technologie $technology): self
+    {
+        if (!$this->technologies->contains($technology)) {
+            $this->technologies->add($technology);
+        }
+
+        return $this;
+    }
+
+    public function removeTechnology(Technologie $technology): self
+    {
+        $this->technologies->removeElement($technology);
 
         return $this;
     }

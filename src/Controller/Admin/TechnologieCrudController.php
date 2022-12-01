@@ -22,6 +22,7 @@ class TechnologieCrudController extends AbstractCrudController
         return [
             IdField::new('id')->hideOnForm(),
             TextField::new('libelle'),
+	        AssociationField::new('exemples')->hideOnForm()
         ];
     }
 

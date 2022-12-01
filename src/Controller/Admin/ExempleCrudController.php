@@ -26,7 +26,7 @@ class ExempleCrudController extends AbstractCrudController
 	        TextField::new('titre'),
 	        TextareaField::new('description'),
 	        TextareaField::new('code'),
-	        AssociationField::new('technologies'),
+	        AssociationField::new('technologies')->setRequired(true),
 	        DateField::new('createdAt')->hideOnForm()->setFormat('dd/MM/YYYY HH:mm:ss')
         ];
     }
