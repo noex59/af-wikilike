@@ -28,8 +28,13 @@ class Exemple
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\ManyToMany(targetEntity: Technologie::class, inversedBy: 'exemples')]
-    private Collection $technologies;
+    #[ORM\ManyToMany(inversedBy: 'exemple', targetEntity: Technologie::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private $technologies;
+
+	#[ORM\Column(length: 255, nullable: true)]
+	private ?string $video = null;
+
 
     public function __construct()
     {
@@ -97,18 +102,21 @@ class Exemple
         return $this->technologies;
     }
 
-    public function addTechnology(Technologie $technology): self
-    {
-        if (!$this->technologies->contains($technology)) {
-            $this->technologies->add($technology);
-        }
+	public function setTechnologies(Technologie $technologie): self
+	{
+		$this->technologies = $technologie;
 
-        return $this;
+		return $this;
+	}
+
+    public function getVideo(): ?string
+    {
+        return $this->video;
     }
 
-    public function removeTechnology(Technologie $technology): self
+    public function setVideo(?string $video): self
     {
-        $this->technologies->removeElement($technology);
+        $this->video = $video;
 
         return $this;
     }

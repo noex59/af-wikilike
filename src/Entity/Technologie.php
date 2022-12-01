@@ -10,67 +10,66 @@ use Doctrine\Common\Collections\ArrayCollection;
 #[ORM\Entity(repositoryClass: TechnologieRepository::class)]
 class Technologie
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+	#[ORM\Id]
+	#[ORM\GeneratedValue]
+	#[ORM\Column]
+	private ?int $id = null;
 
-    #[ORM\Column(length: 50)]
-    private ?string $libelle = null;
+	#[ORM\Column(length: 50)]
+	private ?string $libelle = null;
 
-    #[ORM\ManyToMany(targetEntity: Exemple::class, mappedBy: 'technologies')]
-    private Collection $exemples;
+	#[ORM\OneToMany(mappedBy: 'technologies', targetEntity: Exemple::class)]
+	private $exemple;
 
 	public function __construct() {
-               		$this->exemple = new ArrayCollection();
-                 $this->exemples = new ArrayCollection();
-               	}
+		$this->exemple = new ArrayCollection();
+	}
 
 	public function getId(): ?int
-                   {
-                       return $this->id;
-                   }
+	{
+		return $this->id;
+	}
 
-    public function getLibelle(): ?string
-    {
-        return $this->libelle;
-    }
+	public function getLibelle(): ?string
+	{
+		return $this->libelle;
+	}
 
-    public function setLibelle(string $libelle): self
-    {
-        $this->libelle = $libelle;
+	public function setLibelle(string $libelle): self
+	{
+		$this->libelle = $libelle;
 
-        return $this;
-    }
+		return $this;
+	}
 
 	public function __toString(): string{
-               		return $this->libelle;
-               	}
+		return $this->libelle;
+	}
 
-    /**
-     * @return Collection<int, Exemple>
-     */
-    public function getExemples(): Collection
-    {
-        return $this->exemples;
-    }
+	/**
+	 * @return Collection<int, Exemple>
+	 */
+	public function getExemples(): Collection
+	{
+		return $this->exemple;
+	}
 
-    public function addExemple(Exemple $exemple): self
-    {
-        if (!$this->exemples->contains($exemple)) {
-            $this->exemples->add($exemple);
-            $exemple->addTechnology($this);
-        }
+	public function addExemple(Exemple $exemple): self
+	{
+		if (!$this->exemple->contains($exemple)) {
+			$this->exemple->add($exemple);
+			$exemple->setTechnologies($this);
+		}
 
-        return $this;
-    }
+		return $this;
+	}
 
-    public function removeExemple(Exemple $exemple): self
-    {
-        if ($this->exemples->removeElement($exemple)) {
-            $exemple->removeTechnology($this);
-        }
+	public function removeExemple(Exemple $exemple): self
+	{
+		if ($this->exemple->removeElement($exemple)) {
+			$exemple->setTechnologies($this);
+		}
 
-        return $this;
-    }
+		return $this;
+	}
 }

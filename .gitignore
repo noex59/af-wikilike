@@ -18,3 +18,14 @@
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
+
+### RAJOUT ###
+.env
+symfony.lock
+composer.lock
+*.lock
+/*.lock
+/.env
+/.idea/
+/migrations/
+/public/upload
