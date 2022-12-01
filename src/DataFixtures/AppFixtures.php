@@ -33,7 +33,7 @@ class AppFixtures extends Fixture
             margin: 0 auto;
         }");
         $exemple->setCreatedAt(new \DateTimeImmutable());
-        $exemple->setTechnologies($technologie1);
+        $exemple->addTechnology($technologie1);
 
         $manager->persist($exemple);
 
@@ -53,7 +53,7 @@ class AppFixtures extends Fixture
             }
         }');
         $exemple->setCreatedAt(new \DateTimeImmutable());
-        $exemple->setTechnologies($technologie2);
+        $exemple->addTechnology($technologie2);
 
         $manager->persist($exemple);
 
@@ -61,7 +61,7 @@ class AppFixtures extends Fixture
         $exemple->setTitre("Exemple code wordpress");
         $exemple->setCode("get_option('OPTION_NAME')");
         $exemple->setCreatedAt(new \DateTimeImmutable());
-        $exemple->setTechnologies($technologie3);
+        $exemple->addTechnology($technologie3);
 
         $manager->persist($exemple);
 

@@ -18,11 +18,12 @@ class Technologie
 	#[ORM\Column(length: 50)]
 	private ?string $libelle = null;
 
-	#[ORM\OneToMany(mappedBy: 'technologies', targetEntity: Exemple::class)]
-	private $exemple;
+	#[ORM\ManyToMany(targetEntity: Exemple::class, mappedBy: 'technologies')]
+	private Collection $exemples;
+
 
 	public function __construct() {
-		$this->exemple = new ArrayCollection();
+		$this->exemples = new ArrayCollection();
 	}
 
 	public function getId(): ?int
@@ -42,23 +43,19 @@ class Technologie
 		return $this;
 	}
 
-	public function __toString(): string{
-		return $this->libelle;
-	}
-
 	/**
 	 * @return Collection<int, Exemple>
 	 */
 	public function getExemples(): Collection
 	{
-		return $this->exemple;
+		return $this->exemples;
 	}
 
 	public function addExemple(Exemple $exemple): self
 	{
-		if (!$this->exemple->contains($exemple)) {
-			$this->exemple->add($exemple);
-			$exemple->setTechnologies($this);
+		if (!$this->exemples->contains($exemple)) {
+			$this->exemples->add($exemple);
+			$exemple->addTechnology($this);
 		}
 
 		return $this;
@@ -66,10 +63,14 @@ class Technologie
 
 	public function removeExemple(Exemple $exemple): self
 	{
-		if ($this->exemple->removeElement($exemple)) {
-			$exemple->setTechnologies($this);
+		if ($this->exemples->removeElement($exemple)) {
+			$exemple->removeTechnology($this);
 		}
 
 		return $this;
+	}
+
+	public function __toString(): string{
+		return $this->libelle;
 	}
 }

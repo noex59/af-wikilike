@@ -21,7 +21,7 @@ git clone https://github.com/noex59/af-wikilike.git && cd af-wikilike && compose
 * Créer la bdd & charger les informations
 
 ```
-symfony console server:start OU php -S 127.0.0.1:8000 -t public
+symfony server:start OU php -S 127.0.0.1:8000 -t public
 php bin/console doctrine:database:create
 php bin/console make:migration
 php bin/console doctrine:migrations:migrate
