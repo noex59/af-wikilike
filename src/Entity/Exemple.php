@@ -34,8 +34,12 @@ class Exemple
 	#[ORM\ManyToMany(targetEntity: Technologie::class, inversedBy: 'exemples')]
 	private Collection $technologies;
 
+	#[ORM\Column]
+	private bool $isValidated = false;
+
 	public function __construct()
 	{
+		$this->createdAt = new \DateTimeImmutable();
 		$this->technologies = new ArrayCollection();
 	}
 
@@ -86,7 +90,7 @@ class Exemple
 		return $this->createdAt;
 	}
 
-	public function setCreatedAt(\DateTimeImmutable $createdAt): self
+	public function setCreatedAt(?\DateTimeImmutable $createdAt): self
 	{
 		$this->createdAt = $createdAt;
 
@@ -125,6 +129,18 @@ class Exemple
 	public function removeTechnology(Technologie $technology): self
 	{
 		$this->technologies->removeElement($technology);
+
+		return $this;
+	}
+
+	public function isIsValidated(): bool
+	{
+		return $this->isValidated;
+	}
+
+	public function setIsValidated(bool $isValidated): self
+	{
+		$this->isValidated = $isValidated;
 
 		return $this;
 	}

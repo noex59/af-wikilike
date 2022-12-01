@@ -7,6 +7,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CodeEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -43,7 +44,8 @@ class ExempleCrudController extends AbstractCrudController
                         'accept' => 'video/mp4',
                     ]
                 ]),
-	        DateField::new('createdAt')->hideOnForm()->setFormat('dd/MM/YYYY HH:mm:ss')
+	        BooleanField::new('isValidated', "Validé ?"),
+	        DateField::new('createdAt', "Créer le")->hideOnForm()->setFormat('dd/MM/YYYY HH:mm:ss')
         ];
     }
 }

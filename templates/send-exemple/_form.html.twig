@@ -1,0 +1,21 @@
+<div id="envoyer-exemple-form">
+    {{ form_start(form) }}
+        <div>
+            {{ form_row(form.titre) }}
+        </div>
+        <div>
+            {{ form_row(form.description) }}
+        </div>
+        <div>
+            {{ form_row(form.code) }}
+        </div>
+        <div>
+            {{ form_row(form.technologies) }}
+        </div>
+        <div>
+            {{ form_row(form.video) }}
+        </div>
+
+        <input type="submit" value="envoyer">
+    {{ form_end(form) }}
+</div>

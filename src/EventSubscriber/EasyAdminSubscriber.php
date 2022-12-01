@@ -18,7 +18,7 @@ class EasyAdminSubscriber implements EventSubscriberInterface
 		$this->passwordEncoder = $passwordEncoder;
 	}
 
-	public static function getSubscribedEvents()
+	public static function getSubscribedEvents(): array
 	{
 		return [
 			BeforeEntityPersistedEvent::class => ['setUserCreatedAtAndPassword'],
@@ -29,8 +29,6 @@ class EasyAdminSubscriber implements EventSubscriberInterface
 	public function setUserCreatedAtAndPassword(BeforeEntityPersistedEvent $event)
 	{
 		$entity = $event->getEntityInstance();
-
-		dd($entity);
 
 		if ($entity instanceof User) {
 			$password = $this->passwordEncoder->hashPassword(
